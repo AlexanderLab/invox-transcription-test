@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #4B27E4;
+  --color-brand-secondary: #1E1F21;
+  --color-brand-muted: #677CBC;
+  --color-brand-accent-pink: #C11574;
+  --color-brand-success: #027A48;
+  --color-brand-warning: #FEC84B;
+  --color-surface-base: #FAF9FC;
+  --color-surface-tint: #F2EFF9;
+  --color-text-main: #101828;
+  --color-text-body: #333333;
+  --color-text-muted: #475467;
+}

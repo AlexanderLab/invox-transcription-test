@@ -1,0 +1,55 @@
+# Root .gitignore — Invox monorepo
+
+# ── Node ──────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Environment & secrets ─────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Build outputs ─────────────────────────────────────
+dist/
+build/
+
+# ── Nuxt ──────────────────────────────────────────────
+.nuxt/
+.output/
+.nitro/
+.cache/
+.data/
+
+# ── Serverless Framework ──────────────────────────────
+.serverless/
+
+# ── Logs & debug files ───────────────────────────────
+logs/
+*.log
+logs.json
+logs.txt
+info.txt
+info8.txt
+logs8.txt
+deploy_log.txt
+cfn_out.json
+
+# ── TypeScript build artifacts ────────────────────────
+*.js.map
+*.d.ts
+
+# ── IDE / OS ──────────────────────────────────────────
+.DS_Store
+.vscode/
+.idea/
+Thumbs.db
+
+# ── Test coverage output ──────────────────────────────
+coverage/
+.nyc_output/
+
+# ── Cypress artifacts ─────────────────────────────────
+cypress/videos/
+cypress/screenshots/

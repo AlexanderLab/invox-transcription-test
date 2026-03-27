@@ -1,0 +1,129 @@
+org: alexanderlab
+app: invox-backend
+service: invox-backend-v2
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-west-1
+  httpApi:
+    cors: true
+  environment:
+    DYNAMO_TABLE: invox-backend-dev-transcriptions
+    S3_BUCKET: ${self:service}-${sls:stage}-audio
+    COGNITO_USER_POOL_ID: ${env:COGNITO_USER_POOL_ID}
+    COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
+    ASSEMBLYAI_API_KEY: ${env:ASSEMBLYAI_API_KEY}
+    CONNECTIONS_TABLE: invox-backend-dev-connections
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: [dynamodb:*, s3:*, cognito-idp:*]
+          Resource: "*"
+        - Effect: Allow
+          Action:
+            - execute-api:ManageConnections
+          Resource:
+            - Fn::Join:
+                - ":"
+                - - "arn:aws:execute-api"
+                  - Ref: AWS::Region
+                  - Ref: AWS::AccountId
+                  - "*/${sls:stage}/POST/@connections/*"
+
+build:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    exclude: ["aws-sdk"]
+    target: "node20"
+    platform: "node"
+
+resources:
+  Resources:
+    # Reusing existing DynamoDB tables from old project:
+    # - invox-backend-dev-transcriptions
+    # - invox-backend-dev-connections
+
+functions:
+  register:
+    handler: src/functions/auth/register.handler
+    events:
+      - httpApi:
+          path: /auth/register
+          method: POST
+
+  confirm:
+    handler: src/functions/auth/confirm.handler
+    events:
+      - httpApi:
+          path: /auth/confirm
+          method: POST
+
+  login:
+    handler: src/functions/auth/login.handler
+    events:
+      - httpApi:
+          path: /auth/login
+          method: POST
+
+  getAiToken:
+    handler: src/functions/auth/getAiToken.handler
+    events:
+      - httpApi:
+          path: /auth/ai-token
+          method: GET
+
+  processAudio:
+    handler: src/functions/transcriptions/processAudio.handler
+    timeout: 900
+    environment:
+      WS_ENDPOINT: 
+        Fn::Join:
+          - ""
+          - - "https://"
+            - !Ref WebsocketsApi
+            - ".execute-api."
+            - ${self:provider.region}
+            - ".amazonaws.com/${sls:stage}"
+    events:
+      - s3:
+          bucket: ${self:provider.environment.S3_BUCKET}
+          event: s3:ObjectCreated:*
+          existing: true
+          rules:
+            - prefix: audio
+
+  getPresignedUrl:
+    handler: src/functions/transcriptions/getPresignedUrl.handler
+    events:
+      - httpApi: { path: /transcriptions/presigned-url, method: POST }
+
+  listTranscriptions:
+    handler: src/functions/transcriptions/list.handler
+    events:
+      - httpApi: { path: /transcriptions, method: GET }
+
+  downloadTranscription:
+    handler: src/functions/transcriptions/download.handler
+    events:
+      - httpApi: { path: "/transcriptions/{id}/download", method: GET }
+
+  saveLiveTranscription:
+    handler: src/functions/transcriptions/saveLive.handler
+    events:
+      - httpApi: { path: "/transcriptions/live", method: POST }
+
+  wsConnect:
+    handler: src/functions/websockets/connect.handler
+    events:
+      - websocket:
+          route: $connect
+
+  wsDisconnect:
+    handler: src/functions/websockets/disconnect.handler
+    events:
+      - websocket:
+          route: $disconnect
