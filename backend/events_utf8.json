@@ -1,0 +1,62 @@
+﻿[
+    [
+        "ProcessAudioCustomS31",
+        "Received response status [FAILED] from custom resource. Message returned: Configuration is ambiguously defined. Cannot have overlapping suffixes in two rules if the prefixes are overlapping for the same event type. See details in CloudWatch Log: 2026/03/26/[$LATEST]e16e21b7a23b4c2abb22507863bbe3c3 (RequestId: a56363d8-c6c3-4bac-a34f-a33186f75d6e)"
+    ],
+    [
+        "LoginLambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "WsConnectLambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "ProcessAudioLambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "GetPresignedUrlLambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "SaveLiveTranscriptionLambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "ConfirmLambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "ListTranscriptionsLambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "RegisterLambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "DownloadTranscriptionLambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "CustomDashresourceDashexistingDashs3LambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "GetAiTokenLambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "WsDisconnectLambdaFunction",
+        "Resource update cancelled"
+    ],
+    [
+        "TranscriptionsTable",
+        "invox-backend-dev-transcriptions already exists in stack arn:aws:cloudformation:eu-west-1:044528206255:stack/invox-backend-dev/59d955f0-27b7-11f1-9799-027b6d54738b"
+    ],
+    [
+        "ConnectionsTable",
+        "invox-backend-dev-connections already exists in stack arn:aws:cloudformation:eu-west-1:044528206255:stack/invox-backend-dev/59d955f0-27b7-11f1-9799-027b6d54738b"
+    ]
+]
