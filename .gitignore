@@ -53,3 +53,8 @@ coverage/
 # ── Cypress artifacts ─────────────────────────────────
 cypress/videos/
 cypress/screenshots/
+
+# Temporary test/event files
+backend/events*.json
+temp_aai/
+

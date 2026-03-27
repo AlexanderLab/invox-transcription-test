@@ -4,7 +4,13 @@ import axios from 'axios';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const ASSEMBLYAI_API_KEY = '39211856f7bf4e6e9eed34d05d344a00';
+const ASSEMBLYAI_API_KEY = process.env.ASSEMBLYAI_API_KEY || '';
+
+if (!ASSEMBLYAI_API_KEY) {
+  console.error('[!] Missing ASSEMBLYAI_API_KEY in environment variables.');
+  process.exit(1);
+}
+
 
 async function test() {
   console.log('[1] Testing AssemblyAI upload...');
