@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-surface-base flex flex-col">
     <!-- Navbar -->
     <nav class="bg-brand-primary text-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Vócali Transcription</h1>
+      <h1 class="text-xl font-bold">Invox Transcription Prueba Técnica</h1>
       <div class="flex items-center space-x-4">
         <span>{{ userEmail }}</span>
         <button @click="logout" class="bg-brand-secondary hover:bg-black font-bold py-1 px-3 rounded text-sm text-white transition-colors">

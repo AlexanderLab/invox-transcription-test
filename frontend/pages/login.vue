@@ -46,6 +46,8 @@ const login = async () => {
     authToken.value = res.tokens?.idToken || res.idToken;
     const userId = useCookie('userId');
     userId.value = res.userId;
+    const userEmail = useCookie('userEmail');
+    userEmail.value = form.value.email;
 
     router.push('/');
   } catch (err) {
