@@ -1,5 +1,6 @@
 org: alexanderlab
 app: invox-backend
+frameworkVersion: ^4.33.0
 service: invox-backend-v2
 
 provider:
