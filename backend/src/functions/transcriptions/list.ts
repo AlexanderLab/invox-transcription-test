@@ -15,6 +15,7 @@ export const handler = async (event: any) => {
 
     const params: any = {
       TableName: process.env.DYNAMO_TABLE!,
+      IndexName: "CreatedAtDateIndex",
       KeyConditionExpression: "userId = :uid",
       ExpressionAttributeValues: { ":uid": userId },
       Limit: limit,

@@ -10,7 +10,7 @@ provider:
   httpApi:
     cors: true
   environment:
-    DYNAMO_TABLE: invox-backend-dev-transcriptions
+    DYNAMO_TABLE: ${self:service}-${sls:stage}-transcriptions
     S3_BUCKET: ${self:service}-${sls:stage}-audio
     COGNITO_USER_POOL_ID: ${env:COGNITO_USER_POOL_ID}
     COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
@@ -59,8 +59,33 @@ resources:
                 - "*"
               AllowedHeaders:
                 - "*"
-    # Reusing existing DynamoDB tables from old project:
-    # - invox-backend-dev-transcriptions
+    TranscriptionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:service}-${sls:stage}-transcriptions
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: createdAt
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: CreatedAtDateIndex
+            KeySchema:
+              - AttributeName: userId
+                KeyType: HASH
+              - AttributeName: createdAt
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+    # Reusing existing connections table for now
     # - invox-backend-dev-connections
 
 functions:
