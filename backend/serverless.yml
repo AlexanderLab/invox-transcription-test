@@ -44,6 +44,21 @@ build:
 
 resources:
   Resources:
+    AttachmentsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.S3_BUCKET}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - HEAD
+              AllowedOrigins:
+                - "*"
+              AllowedHeaders:
+                - "*"
     # Reusing existing DynamoDB tables from old project:
     # - invox-backend-dev-transcriptions
     # - invox-backend-dev-connections
@@ -91,9 +106,8 @@ functions:
             - ".amazonaws.com/${sls:stage}"
     events:
       - s3:
-          bucket: ${self:provider.environment.S3_BUCKET}
+          bucket: AttachmentsBucket
           event: s3:ObjectCreated:*
-          existing: true
           rules:
             - prefix: audio
 
