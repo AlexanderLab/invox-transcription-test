@@ -66,17 +66,23 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './backend/package-lock.json'
       - run: npm ci --legacy-peer-deps
-      - name: Setup Serverless Access Key
-        run: echo "SERVERLESS_ACCESS_KEY=${{ secrets.SERVERLESS_ACCESS_KEY }}" >> $GITHUB_ENV
+      - name: Setup & Sanitize Environment
+        run: |
+          echo "SERVERLESS_ACCESS_KEY=$(echo -n "${{ secrets.SERVERLESS_ACCESS_KEY }}" | xargs)" >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=$(echo -n "${{ secrets.AWS_ACCESS_KEY_ID }}" | xargs)" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=$(echo -n "${{ secrets.AWS_SECRET_ACCESS_KEY }}" | xargs)" >> $GITHUB_ENV
+          echo "COGNITO_USER_POOL_ID=$(echo -n "${{ secrets.COGNITO_USER_POOL_ID }}" | xargs)" >> $GITHUB_ENV
+          echo "COGNITO_CLIENT_ID=$(echo -n "${{ secrets.COGNITO_CLIENT_ID }}" | xargs)" >> $GITHUB_ENV
+          echo "ASSEMBLYAI_API_KEY=$(echo -n "${{ secrets.ASSEMBLYAI_API_KEY }}" | xargs)" >> $GITHUB_ENV
       - name: Deploy to AWS
         run: npx serverless deploy --stage prod
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
           SERVERLESS_ACCESS_KEY: ${{ env.SERVERLESS_ACCESS_KEY }}
-          COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
-          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
-          ASSEMBLYAI_API_KEY: ${{ secrets.ASSEMBLYAI_API_KEY }}
+          COGNITO_USER_POOL_ID: ${{ env.COGNITO_USER_POOL_ID }}
+          COGNITO_CLIENT_ID: ${{ env.COGNITO_CLIENT_ID }}
+          ASSEMBLYAI_API_KEY: ${{ env.ASSEMBLYAI_API_KEY }}
 
   deploy-frontend:
     name: Deploy Frontend (Cloudflare Pages)
