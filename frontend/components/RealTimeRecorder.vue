@@ -30,6 +30,7 @@
 </template>
 
 <script setup>
+import { ref, computed } from 'vue';
 const isRecording = ref(false);
 const loading = ref(false);
 const transcriptionText = ref('');

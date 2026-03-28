@@ -42,6 +42,7 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 const config = useRuntimeConfig();
 const { fetchWithAuth } = useApi();
 const userId = useCookie('userId');

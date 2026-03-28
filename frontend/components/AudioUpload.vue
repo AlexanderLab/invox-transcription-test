@@ -18,6 +18,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 const file = ref(null);
 const uploading = ref(false);
 const message = ref('');
