@@ -106,8 +106,9 @@ functions:
             - ".amazonaws.com/${sls:stage}"
     events:
       - s3:
-          bucket: AttachmentsBucket
+          bucket: ${self:provider.environment.S3_BUCKET}
           event: s3:ObjectCreated:*
+          existing: true
           rules:
             - prefix: audio
 
