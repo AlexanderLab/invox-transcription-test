@@ -1,5 +1,5 @@
 Objetivo
-La empresa Vocali se encuentra construyendo un servicio en la nube que permita a
+La empresa Invox se encuentra construyendo un servicio en la nube que permita a
 los usuarios registrados realizar transcripciones de audio.
 La plataforma contratará con las siguientes opciones:
 - Registrarse en la plataforma: permite darse de alta en la plataforma para

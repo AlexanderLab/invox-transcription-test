@@ -1,4 +1,4 @@
-name: Vócali CI/CD Pipeline
+name: Invox CI/CD Pipeline
 
 on:
   push:
@@ -47,8 +47,8 @@ jobs:
         continue-on-error: true # Allow initial tests to pass while vitest is stabilized
       - run: npm run generate
         env:
-          NUXT_PUBLIC_API_URL: ${{ secrets.NUXT_PUBLIC_API_URL || 'https://api.vocalitest.com' }}
-          NUXT_PUBLIC_WS_URL: ${{ secrets.NUXT_PUBLIC_WS_URL || 'wss://ws.vocalitest.com' }}
+          NUXT_PUBLIC_API_URL: ${{ secrets.NUXT_PUBLIC_API_URL || 'https://api.invox-test.com' }}
+          NUXT_PUBLIC_WS_URL: ${{ secrets.NUXT_PUBLIC_WS_URL || 'wss://ws.invox-test.com' }}
 
   deploy-backend:
     name: Deploy Backend (AWS Serverless)
@@ -66,11 +66,14 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './backend/package-lock.json'
       - run: npm ci --legacy-peer-deps
+      - name: Setup Serverless Access Key
+        run: echo "SERVERLESS_ACCESS_KEY=${{ secrets.SERVERLESS_ACCESS_KEY }}" >> $GITHUB_ENV
       - name: Deploy to AWS
         run: npx serverless deploy --stage prod
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SERVERLESS_ACCESS_KEY: ${{ env.SERVERLESS_ACCESS_KEY }}
           COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
           COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
           ASSEMBLYAI_API_KEY: ${{ secrets.ASSEMBLYAI_API_KEY }}
