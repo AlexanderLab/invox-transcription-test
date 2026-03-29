@@ -1,6 +1,6 @@
-# Invox — Plataforma de Transcripción de Audio
+# Invox — Plataforma de Transcripción de Audio - Prueba técnica
 
-Invox es una plataforma cloud que permite a usuarios registrados transcribir audio, tanto desde ficheros pregrabados como en tiempo real a través del micrófono. Construida sobre AWS con arquitectura serverless.
+ Esta app permite a usuarios registrados transcribir audio, tanto desde ficheros pregrabados como en tiempo real a través del micrófono. Construida sobre AWS con arquitectura serverless.
 
 ---
 
