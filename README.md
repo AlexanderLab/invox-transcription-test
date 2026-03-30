@@ -89,12 +89,12 @@ Invox es una plataforma cloud que permite a usuarios registrados transcribir aud
 
 ## Funcionalidades
 
-- 🔐 **Registro y autenticación** — via AWS Cognito
-- 📁 **Transcripción de ficheros** — MP3, WAV, M4A hasta 20 MB
-- 🎙️ **Transcripción en tiempo real** — WebSocket + micrófono del navegador
-- 📋 **Historial paginado** — 10 elementos por página con scroll infinito
-- ⬇️ **Descarga de transcripciones** — exporta cualquier transcripción como `.txt`
-- 🚪 **Cierre de sesión** — limpieza de cookies segura
+-  **Registro y autenticación** — via AWS Cognito
+-  **Transcripción de ficheros** — MP3, WAV, M4A hasta 20 MB
+-  **Transcripción en tiempo real** — WebSocket + micrófono del navegador
+-  **Historial paginado** — 10 elementos por página con scroll infinito
+-  **Descarga de transcripciones** — exporta cualquier transcripción como `.txt`
+-  **Cierre de sesión** — limpieza de cookies segura
 
 ---
 
@@ -114,7 +114,7 @@ Invox es una plataforma cloud que permite a usuarios registrados transcribir aud
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/invox-transcription-test.git
+git clone https://github.com/AlexanderLab/invox-transcription-test.git
 cd invox-transcription-test
 ```
 
@@ -137,10 +137,8 @@ cp .env.example .env
 ### 3. Instalar dependencias
 
 ```bash
-# Backend
 cd backend && npm install
 
-# Frontend
 cd frontend && npm install
 ```
 
